@@ -103,14 +103,12 @@ U-Net 输出预测噪声，**并用二者之间的误差作为损失函数
 
 关键解释：图像自带的模糊是不规则伪影，扩散模型无法识别；添加标准噪声是为了匹配扩散时间步体系，启动DDIM去噪流程，同时覆盖原生缺陷。
 
-3.  调用DDIM 从 $t^*$ 开始多步去噪，生成同视角高清标准重光照图 $x_{\mathrm{relit}}(t^*)$；
+3.  调用 DDIM 从 $t^\ast$ 开始多步去噪，生成同视角高清标准重光照图 $x_{\mathrm{relit}}(t^\ast)$。
 
 4.  采用联合损失函数监督NeRF外观场优化：
 
 $$
-L_{\mathrm{diff}}
-= w_1 \left\| \widehat{x} - x_{\mathrm{relit}}(t^*) \right\|_1
-+ w_2 L_P\left(\widehat{x}, x_{\mathrm{relit}}(t^*)\right)
+L_{\mathrm{diff}} = w_1 \left\| \widehat{x} - x_{\mathrm{relit}}(t^\ast) \right\|_1 + w_2 L_{\mathrm{P}}\left(\widehat{x}, x_{\mathrm{relit}}(t^\ast)\right)
 $$
 
 - L1 像素损失：保证色彩、亮度全局一致；
